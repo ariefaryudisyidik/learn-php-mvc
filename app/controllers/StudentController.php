@@ -12,4 +12,15 @@ class StudentController extends Controller
         ]);
         $this->view('templates/footer');
     }
+
+    public function detail($id)
+    {
+        $this->view('templates/header', [
+            'title' => 'Student Detail',
+        ]);
+        $this->view('students/detail', [
+            'student' => $this->model('Student')->getStudentById($id),
+        ]);
+        $this->view('templates/footer');
+    }
 }

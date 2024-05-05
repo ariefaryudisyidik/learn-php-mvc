@@ -2,24 +2,27 @@
 
 class Student
 {
-    private $dbh; // database handler
+    private $table = 'student';
+
+    private $db;
 
     public function __construct()
     {
-        // data source name
-        $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME;
-
-        try {
-            $this->dbh = new PDO($dsn, DB_USERNAME, DB_PASSWORD);
-        } catch (PDOException $e) {
-            exit($e->getMessage());
-        }
+        $this->db = new Database;
     }
 
     public function getAllStudents(): array
     {
-        return $this->dbh
-            ->query('SELECT * FROM student')
-            ->fetchAll(PDO::FETCH_ASSOC);
+        $this->db->query("SELECT * FROM $this->table");
+
+        return $this->db->resultSet();
+    }
+
+    public function getStudentById($id): array
+    {
+        $this->db->query("SELECT * FROM $this->table WHERE id=:id");
+        $this->db->bind('id', $id);
+
+        return $this->db->single();
     }
 }
