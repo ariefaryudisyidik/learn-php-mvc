@@ -2,7 +2,7 @@
 
 class App
 {
-    protected $controller = 'Home';
+    protected $controller = 'HomeController';
 
     protected $method = 'index';
 
@@ -13,8 +13,8 @@ class App
         $url = $this->parseUrl();
 
         // controller
-        if (isset($url) && file_exists("../app/controllers/$url[0].php")) {
-            $this->controller = $url[0];
+        if (isset($url) && file_exists("../app/controllers/$url[0]Controller.php")) {
+            $this->controller = "$url[0]Controller";
             unset($url[0]);
         }
 
