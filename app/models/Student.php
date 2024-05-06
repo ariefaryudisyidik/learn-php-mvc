@@ -25,4 +25,20 @@ class Student
 
         return $this->db->single();
     }
+
+    public function insertStudent($data): int
+    {
+        $query = "INSERT INTO $this->table
+        VALUES (0, :name, :npm, :email, :major)";
+
+        $this->db->query($query);
+        $this->db->bind('name', $data['name']);
+        $this->db->bind('npm', $data['npm']);
+        $this->db->bind('major', $data['major']);
+        $this->db->bind('email', $data['email']);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 }

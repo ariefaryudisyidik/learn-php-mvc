@@ -23,4 +23,12 @@ class StudentController extends Controller
         ]);
         $this->view('templates/footer');
     }
+
+    public function store()
+    {
+        if ($this->model('Student')->insertStudent($_POST) > 0) {
+            header('Location: '.BASE_URL.'/student');
+            exit;
+        }
+    }
 }
