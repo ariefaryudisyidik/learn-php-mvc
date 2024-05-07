@@ -12,9 +12,10 @@
         <h3 class="mt-4">Student List</h3>
         <ul class="list-group">
             <?php foreach ($data['students'] as $student) {?>
-            <li class="list-group-item d-flex justify-content-between alignt-items-center">
-                <?= $student['name'] ?>
-                <a href="<?= BASE_URL ?>/student/detail/<?= $student['id'] ?>" class="badge text-bg-primary">detail</a>
+            <li class="list-group-item">
+                <?= $student['name']?>
+                <a href="<?= BASE_URL?>/student/destroy/<?= $student['id']?>" class="badge text-bg-danger float-end ms-1" onclick="return confirm('Are you sure?');">delete</a>
+                <a href="<?= BASE_URL?>/student/detail/<?= $student['id']?>" class="badge text-bg-primary float-end ms-1">detail</a>
             </li>
             <?php }?>
         </ul>
@@ -29,7 +30,7 @@
                 <h1 class="modal-title fs-5" id="modalTitle">Insert Student Data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= BASE_URL ?>/student/store" method="post">
+            <form action="<?= BASE_URL?>/student/store" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name">Name</label>

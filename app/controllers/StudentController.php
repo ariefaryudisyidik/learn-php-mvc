@@ -2,6 +2,8 @@
 
 class StudentController extends Controller
 {
+    private const STUDENT_LOCATION = 'Location: '.BASE_URL.'/student';
+
     public function index()
     {
         $this->view('templates/header', [
@@ -28,11 +30,24 @@ class StudentController extends Controller
     {
         if ($this->model('Student')->insertStudent($_POST) > 0) {
             Flasher::setFlash('successfully', 'inserted', 'success');
-            header('Location: '.BASE_URL.'/student');
+            header(self::STUDENT_LOCATION);
             exit;
         } else {
             Flasher::setFlash('failed', 'inserted', 'danger');
-            header('Location: '.BASE_URL.'/student');
+            header(self::STUDENT_LOCATION);
+            exit;
+        }
+    }
+
+    public function destroy($id)
+    {
+        if ($this->model('Student')->deleteStudent($id) > 0) {
+            Flasher::setFlash('successfully', 'deleted', 'success');
+            header(self::STUDENT_LOCATION);
+            exit;
+        } else {
+            Flasher::setFlash('failed', 'deleted', 'danger');
+            header(self::STUDENT_LOCATION);
             exit;
         }
     }
