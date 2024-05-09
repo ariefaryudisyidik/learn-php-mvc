@@ -69,4 +69,15 @@ class StudentController extends Controller
             exit;
         }
     }
+
+    public function search()
+    {
+        $this->view('templates/header', [
+            'title' => 'Student',
+        ]);
+        $this->view('student/index', [
+            'students' => $this->model('Student')->searchStudent($_POST['keyword']),
+        ]);
+        $this->view('templates/footer');
+    }
 }

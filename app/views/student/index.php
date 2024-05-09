@@ -4,12 +4,29 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-3">
     <div class="col-lg-6">
         <button type="button" class="btn btn-primary btnInsert" data-bs-toggle="modal" data-bs-target="#formModal">
             Insert Student Data
         </button>
-        <h3 class="mt-4">Student List</h3>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-lg-6">
+        <form action="<?= BASE_URL ?>/student/search" method="post">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for Students" name="keyword"
+                    id="keyword" autocomplete="off">
+                <button class="btn btn-primary" type="submit" id="btnSearch">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h3>Student List</h3>
         <ul class="list-group">
             <?php foreach ($data['students'] as $student) {?>
             <li class="list-group-item">
