@@ -29,7 +29,7 @@ class Student
     public function insertStudent($data): int
     {
         $query = "INSERT INTO $this->table
-        VALUES (0, :name, :npm, :email, :major)";
+        VALUES (0, :name, :npm, :major, :email)";
 
         $this->db->query($query);
         $this->db->bind('name', $data['name']);
@@ -48,6 +48,27 @@ class Student
 
         $this->db->query($query);
         $this->db->bind('id', $id);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function updateStudent($data): int
+    {
+        $query = "UPDATE $this->table SET
+        name = :name,
+        npm = :npm,
+        major = :major,
+        email = :email
+        WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind('name', $data['name']);
+        $this->db->bind('npm', $data['npm']);
+        $this->db->bind('major', $data['major']);
+        $this->db->bind('email', $data['email']);
+        $this->db->bind('id', $data['id']);
 
         $this->db->execute();
 

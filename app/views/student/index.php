@@ -6,16 +6,21 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">
+        <button type="button" class="btn btn-primary btnInsert" data-bs-toggle="modal" data-bs-target="#formModal">
             Insert Student Data
         </button>
         <h3 class="mt-4">Student List</h3>
         <ul class="list-group">
             <?php foreach ($data['students'] as $student) {?>
             <li class="list-group-item">
-                <?= $student['name']?>
-                <a href="<?= BASE_URL?>/student/destroy/<?= $student['id']?>" class="badge text-bg-danger float-end ms-1" onclick="return confirm('Are you sure?');">delete</a>
-                <a href="<?= BASE_URL?>/student/detail/<?= $student['id']?>" class="badge text-bg-primary float-end ms-1">detail</a>
+                <?= $student['name'] ?>
+                <a href="<?= BASE_URL ?>/student/destroy/<?= $student['id'] ?>"
+                    class="badge text-bg-danger float-end ms-1" onclick="return confirm('Are you sure?');">delete</a>
+                <a href="<?= BASE_URL ?>/student/edit/<?= $student['id'] ?>"
+                    class="badge text-bg-success float-end ms-1 btnEdit" data-bs-toggle="modal"
+                    data-bs-target="#formModal" data-id="<?= $student['id'] ?>">edit</a>
+                <a href="<?= BASE_URL ?>/student/detail/<?= $student['id'] ?>"
+                    class="badge text-bg-primary float-end ms-1">detail</a>
             </li>
             <?php }?>
         </ul>
@@ -23,15 +28,16 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="modalTitle">Insert Student Data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= BASE_URL?>/student/store" method="post">
+            <form action="<?= BASE_URL ?>/student/store" method="post" class="formAction">
                 <div class="modal-body">
+                    <input type="hidden" name="id" id="id">
                     <div class="mb-3">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name">
@@ -42,7 +48,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="email@example.com">
                     </div>
                     <div class="mb-3">
                         <label for="major">Major</label>

@@ -7,9 +7,9 @@ class StudentController extends Controller
     public function index()
     {
         $this->view('templates/header', [
-            'title' => 'Students',
+            'title' => 'Student',
         ]);
-        $this->view('students/index', [
+        $this->view('student/index', [
             'students' => $this->model('Student')->getAllStudents(),
         ]);
         $this->view('templates/footer');
@@ -20,7 +20,7 @@ class StudentController extends Controller
         $this->view('templates/header', [
             'title' => 'Student Detail',
         ]);
-        $this->view('students/detail', [
+        $this->view('student/detail', [
             'student' => $this->model('Student')->getStudentById($id),
         ]);
         $this->view('templates/footer');
@@ -47,6 +47,24 @@ class StudentController extends Controller
             exit;
         } else {
             Flasher::setFlash('failed', 'deleted', 'danger');
+            header(self::STUDENT_LOCATION);
+            exit;
+        }
+    }
+
+    public function getEdit()
+    {
+        echo json_encode($this->model('Student')->getStudentById($_POST['id']));
+    }
+
+    public function update()
+    {
+        if ($this->model('Student')->updateStudent($_POST) > 0) {
+            Flasher::setFlash('successfully', 'updated', 'success');
+            header(self::STUDENT_LOCATION);
+            exit;
+        } else {
+            Flasher::setFlash('failed', 'updated', 'danger');
             header(self::STUDENT_LOCATION);
             exit;
         }
